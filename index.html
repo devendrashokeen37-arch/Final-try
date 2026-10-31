@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Anshu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Rich deep Burgundy background */
+            background-color: #38040e;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Slow, graceful floating hearts without cheap glow */
+        .heart {
+            position: absolute;
+            bottom: -60px;
+            background: linear-gradient(135deg, #ff4d94 0%, #b30047 100%);
+            transform: rotate(-45deg);
+            animation: floatUp linear infinite;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 50%;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(0.4);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.9;
+            }
+            85% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-125vh) rotate(-45deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* Message container: Small size, italicized, completely hidden until hearts pass over */
+        .message-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+            max-width: 80%;
+        }
+
+        h1 {
+            /* Exact same color as background so it's invisible until hearts hit it */
+            color: #38040e;
+            font-size: clamp(0.95rem, 2vw, 1.25rem);
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            /* Blend mode reveals text strictly where the pink hearts pass */
+            mix-blend-mode: color-dodge;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message-container">
+        <h1>Aap itne gore kaise ho anshu?<br>Fair & Lovely lagate ho kya?</h1>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            const size = Math.random() * 16 + 12; 
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+
+            heart.style.left = `${Math.random() * 100}vw`;
+
+            const luxuryShades = [
+                'linear-gradient(135deg, #ff1e6d 0%, #99003d 100%)',
+                'linear-gradient(135deg, #ff4d88 0%, #cc0052 100%)',
+                'linear-gradient(135deg, #ff70a6 0%, #e6005c 100%)',
+                'linear-gradient(135deg, #ff99bb 0%, #ff1a75 100%)'
+            ];
+            heart.style.background = luxuryShades[Math.floor(Math.random() * luxuryShades.length)];
+
+            const duration = Math.random() * 3 + 5; 
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `${Math.random() * 1}s`;
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, (duration + 2) * 1000);
+        }
+
+        // MASSIVE EXPLOSION: Instantly drop 120 hearts in the first 2 seconds
+        for(let i = 0; i < 120; i++) {
+            setTimeout(createHeart, Math.random() * 2000);
+        }
+        
+        // Then keep a heavy, continuous stream flowing endlessly
+        setInterval(createHeart, 25);
+    </script>
+</body>
+  </html>
+  
